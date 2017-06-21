@@ -21,11 +21,32 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroes().then(heroes => this.heroes = heroes);
   }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) {
+      return;
+    }
+    this.heroService.create(name)
+      .then(hero => {
+        this.heroes.push(hero);
+        this.selectedHero = null;
+      });
+  }
+  deleteHero(hero: Hero): void {
+    this.heroService
+      .deleteHero(hero.id)
+      .then(() => {
+        this.heroes = this.heroes.filter(h => h !== hero);
+        if (this.selectedHero === hero) { this.selectedHero = null; }
+      });
+  }
+
   ngOnInit(): void {
     this.getHeroes();
   }
 
   onSelect(hero: Hero): void {
+    console.log('selected hero:', hero);
     this.selectedHero = hero;
   }
 
