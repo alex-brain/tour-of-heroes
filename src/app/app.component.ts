@@ -12,14 +12,10 @@ export class AppComponent implements OnInit {
   selectedHero: Hero;
   title = 'Tour of heroes';
   heroes = null;
-  constructor(private heroService: HeroService) {
-  }
+  constructor(private heroService: HeroService) {}
 
   getHeroes(): void {
     this.heroService.getHeroesSlowly().then(heroes => this.heroes = heroes);
-  }
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
   }
 
   ngOnInit(): void {
